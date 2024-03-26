@@ -1,0 +1,66 @@
+services:
+  zwkj:
+    restart: always
+    container_name: php-zwkj
+    # build:
+    #   context: ./
+    image: registry.cn-shenzhen.aliyuncs.com/haoyunxin/zwkj:1.0.2
+    links:
+      - zwkj-rabbitmq
+      - zwkj-redis
+      - zwkj-mysql
+      - zwkj-mongo
+      - zwkj-nginx
+    ports:
+      - 9500-9520:9500-9520
+      - 9000:9000
+    volumes:
+      - /d/project/:/var/www
+    # extra_hosts:
+    #   - "goodmeta-oss.oss-cn-shenzhen.aliyuncs.com:120.77.166.194"
+    stdin_open: true
+    tty: true
+
+  zwkj-rabbitmq:
+    restart: always
+    container_name: zwkj-rabbitmq
+    image: rabbitmq:3.8.27-management-alpine
+    ports:
+      - 5671:5671
+      - 5672:5672
+      - 15671:15671
+      - 15672:15672
+    volumes:
+      - /d/project/log/:/var/log/rabbitmq/
+
+  zwkj-redis:
+    restart: always
+    container_name: zwkj-redis
+    image: redis:6.2.6-alpine
+    ports:
+      - 6379:6379
+
+  zwkj-mysql:
+      restart: always
+      container_name: zwkj-mysql
+      image: mysql:5.7
+      ports:
+        - 3306:3306
+
+  zwkj-mongo:
+    restart: always
+    container_name: zwkj-mongo
+    image: mongo:4.2.9
+    ports:
+      - 27017-27019:27017-27019
+      - 28017:28017
+
+  zwkj-nginx:
+    restart: always
+    container_name: zwkj-nginx
+    image: nginx:1.16.1-alpine
+    ports:
+      - 80:80
+    volumes:
+      - /d/project/:/var/www
+      - /d/nginx/:/etc/nginx/

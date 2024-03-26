@@ -5,7 +5,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone && apk del tzdata && \
     update-ca-certificates && \
     docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ --with-webp-dir=/usr/include/ && \
-    docker-php-ext-install gd sockets pcntl pdo_mysql mysqli gmp zip bcmath redis amqp mongodb pdo_pgsql pgsql
+    docker-php-ext-install gd sockets pcntl pdo_mysql mysqli gmp zip bcmath redis amqp mongodb pdo_pgsql pgsql && \
     pecl install event && \
     docker-php-ext-enable event && \
     curl -sS https://getcomposer.org/installer | php && \

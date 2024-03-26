@@ -4,7 +4,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     apk add zip libzip-dev libpng-dev zlib-dev libavif autoconf build-base libevent-dev gcc libc-dev libwebp-dev libjpeg-turbo-dev jpeg-dev freetype-dev make g++ rabbitmq-c-dev libsodium-dev libmcrypt-dev gmp-dev libpq-dev libmemcached-dev ca-certificates openssl-dev tzdata --no-cache && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone && apk del tzdata && \
     update-ca-certificates && \
-    docker-php-ext-configure gd --with-avif --with-jpeg --with-freetype --with-webp && \
+    docker-php-ext-configure gd --with-avif=/usr/include/ --with-jpeg=/usr/include/ --with-freetype=/usr/include/ --with-webp=/usr/include/ && \
     docker-php-ext-install gd sockets pcntl pdo_mysql mysqli gmp zip bcmath redis amqp mongodb pdo_pgsql pgsql && \
     pecl install redis && \
     pecl install amqp && \
